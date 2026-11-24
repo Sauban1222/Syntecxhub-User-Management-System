@@ -277,3 +277,6 @@ The automated suite covers:
 ## License
 
 Educational and portfolio use.
+      
+Thank You
+
