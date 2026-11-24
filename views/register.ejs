@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0b1220" />
+    <title>Create your account · Syntecxhub</title>
+    <link rel="icon" href="/images/brand-mark.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="/js/app.js" defer></script>
+  </head>
+  <body class="auth-page" data-page="register">
+    <div class="page-glow page-glow-one" aria-hidden="true"></div>
+    <div class="page-glow page-glow-two" aria-hidden="true"></div>
+    <div class="site-shell">
+      <header class="site-header">
+        <a class="brand" href="/login" aria-label="Syntecxhub home">
+          <img src="/images/brand-mark.svg" alt="" width="34" height="34" />
+          <span>syntecx<span class="brand-accent">hub</span></span>
+        </a>
+        <p class="header-prompt">Already a member? <a href="/login">Sign in</a></p>
+      </header>
+
+      <main class="auth-layout">
+        <section class="auth-intro">
+          <span class="eyebrow"><span class="eyebrow-dot"></span> YOUR ACCOUNT, SIMPLIFIED</span>
+          <h1>Make room for<br /><span>what matters.</span></h1>
+          <p class="intro-copy">
+            One secure place to manage your details and stay in control of your account.
+          </p>
+          <div class="intro-note">
+            <span class="note-icon" aria-hidden="true">✦</span>
+            <span><strong>Simple by design</strong><br />A focused experience, built around you.</span>
+          </div>
+        </section>
+
+        <section class="form-card" aria-labelledby="form-title">
+          <div class="form-card-top">
+            <span class="form-kicker">GET STARTED</span>
+            <span class="secure-mark"><span aria-hidden="true">●</span> Secure sign up</span>
+          </div>
+          <h2 id="form-title">Create your account</h2>
+          <p class="form-subtitle">A few details and you're ready to go.</p>
+
+          <div class="form-message" data-message role="alert" aria-live="polite" hidden></div>
+
+          <form id="register-form" class="stacked-form" novalidate>
+            <label class="field" for="fullName">
+              <span>Full name</span>
+              <input id="fullName" name="fullName" type="text" autocomplete="name" minlength="2" maxlength="100" placeholder="Your name" required />
+            </label>
+            <label class="field" for="email">
+              <span>Email address</span>
+              <input id="email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required />
+            </label>
+            <div class="field-row">
+              <label class="field" for="password">
+                <span>Password</span>
+                <input id="password" name="password" type="password" autocomplete="new-password" minlength="8" placeholder="At least 8 characters" required />
+              </label>
+              <label class="field" for="confirmPassword">
+                <span>Confirm password</span>
+                <input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" minlength="8" placeholder="Repeat password" required />
+              </label>
+            </div>
+            <button class="button button-primary button-wide" type="submit" data-submit-button>
+              <span data-button-label>Create account</span>
+              <span class="button-spinner" aria-hidden="true" hidden></span>
+              <span class="button-arrow" aria-hidden="true">→</span>
+            </button>
+          </form>
+
+          <p class="form-footnote">By continuing, you agree to use this service responsibly.</p>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <span>© <span data-current-year></span> Syntecxhub</span>
+        <span class="footer-status"><span class="status-dot"></span> Account services</span>
+      </footer>
+    </div>
+  </body>
+</html>

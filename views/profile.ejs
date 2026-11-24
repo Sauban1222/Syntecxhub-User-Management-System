@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" class="auth-pending">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0b1220" />
+    <title>My profile · Syntecxhub</title>
+    <link rel="icon" href="/images/brand-mark.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="/js/app.js" defer></script>
+  </head>
+  <body class="app-page" data-page="profile">
+    <div class="app-shell">
+      <header class="app-header">
+        <a class="brand" href="/dashboard" aria-label="Syntecxhub dashboard">
+          <img src="/images/brand-mark.svg" alt="" width="34" height="34" />
+          <span>syntecx<span class="brand-accent">hub</span></span>
+        </a>
+        <nav class="main-nav" aria-label="Main navigation">
+          <a class="nav-link" href="/dashboard">Overview</a>
+          <a class="nav-link active" href="/profile">My profile</a>
+        </nav>
+        <button class="button button-quiet button-small" type="button" data-logout>Sign out <span aria-hidden="true">↗</span></button>
+      </header>
+
+      <main class="dashboard-main profile-main">
+        <div class="page-heading">
+          <div>
+            <span class="eyebrow"><span class="eyebrow-dot"></span> PERSONAL SETTINGS</span>
+            <h1>My profile<span class="heading-period">.</span></h1>
+            <p class="page-subtitle">Manage the information associated with your account.</p>
+          </div>
+          <a class="text-link back-link" href="/dashboard"><span aria-hidden="true">←</span> Back to overview</a>
+        </div>
+
+        <div class="profile-layout">
+          <section class="info-card profile-card" aria-labelledby="profile-form-title">
+            <div class="section-title-row">
+              <div>
+                <span class="card-overline">PROFILE INFORMATION</span>
+                <h2 id="profile-form-title">Your details</h2>
+                <p class="card-description">Your profile is private to your account.</p>
+              </div>
+              <span class="icon-tile" aria-hidden="true">◎</span>
+            </div>
+
+            <div class="form-message" data-profile-message role="alert" aria-live="polite" hidden></div>
+            <form id="profile-form" class="stacked-form profile-form" novalidate>
+              <label class="field" for="profile-full-name">
+                <span>Full name</span>
+                <input id="profile-full-name" name="fullName" type="text" autocomplete="name" minlength="2" maxlength="100" required disabled />
+              </label>
+              <label class="field" for="profile-email">
+                <span>Email address</span>
+                <input id="profile-email" name="email" type="email" autocomplete="email" inputmode="email" required disabled />
+              </label>
+              <div class="profile-meta">
+                <span>Account ID</span>
+                <code id="profile-user-id">Loading…</code>
+              </div>
+              <div class="form-actions">
+                <button class="button button-primary" type="submit" data-submit-button disabled>
+                  <span data-button-label>Save changes</span>
+                  <span class="button-spinner" aria-hidden="true" hidden></span>
+                  <span class="button-arrow" aria-hidden="true">→</span>
+                </button>
+                <span class="quiet-note">Password changes are not available here.</span>
+              </div>
+            </form>
+          </section>
+
+          <aside class="danger-card">
+            <div class="danger-icon" aria-hidden="true">!</div>
+            <span class="card-overline">ACCOUNT ACTIONS</span>
+            <h2>Delete your account</h2>
+            <p>This permanently removes your account and its profile. This action cannot be undone.</p>
+            <button class="button button-danger" type="button" data-delete-account>Delete account</button>
+            <div class="inline-message" data-delete-message role="status" aria-live="polite" hidden></div>
+          </aside>
+        </div>
+      </main>
+
+      <footer class="app-footer">
+        <span>© <span data-current-year></span> Syntecxhub</span>
+        <span>Profile settings</span>
+      </footer>
+    </div>
+  </body>
+</html>
