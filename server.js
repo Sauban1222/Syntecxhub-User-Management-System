@@ -41,6 +41,21 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(staticDirectory));
+app.use('/api/users', async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    console.error('Database unavailable for API request', {
+      name: error?.name || 'UnknownError',
+      code: error?.code,
+    });
+    res.status(503).json({
+      success: false,
+      message: 'Database temporarily unavailable',
+    });
+  }
+});
 app.use('/api/users', userRoutes);
 
 app.get('/api/health', (req, res) => {
