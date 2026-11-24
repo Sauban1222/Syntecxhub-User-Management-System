@@ -2,6 +2,7 @@ import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import path from 'node:path';
+import { existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { connectDB } from './config/db.js';
 import userRoutes from './routes/userRoutes.js';
@@ -9,14 +10,28 @@ import userRoutes from './routes/userRoutes.js';
 const app = express();
 const port = Number(process.env.PORT || 5000);
 const projectDirectory = path.dirname(fileURLToPath(import.meta.url));
+const viewDirectoryCandidates = [
+  path.join(projectDirectory, 'views'),
+  path.join(process.cwd(), 'views'),
+];
+const viewDirectory = viewDirectoryCandidates.find((candidate) =>
+  existsSync(candidate)
+) || viewDirectoryCandidates[0];
+const staticDirectoryCandidates = [
+  path.join(projectDirectory, 'public'),
+  path.join(process.cwd(), 'public'),
+];
+const staticDirectory = staticDirectoryCandidates.find((candidate) =>
+  existsSync(candidate)
+) || staticDirectoryCandidates[0];
 
 app.set('view engine', 'ejs');
-app.set('views', path.join(projectDirectory, 'views'));
+app.set('views', viewDirectory);
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(projectDirectory, 'public')));
+app.use(express.static(staticDirectory));
 app.use('/api/users', userRoutes);
 
 app.get('/api/health', (req, res) => {

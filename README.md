@@ -256,6 +256,37 @@ The automated suite covers:
 - Account deletion
 - Old-token rejection after deletion
 
+## Netlify Deployment
+
+The application can be deployed to Netlify using the included serverless Express function.
+
+### Netlify build settings
+
+| Setting | Value |
+|---|---|
+| Repository | `Sauban1222/Syntecxhub-User-Management-System` |
+| Base directory | `/` |
+| Build command | `npm install` |
+| Publish directory | `public` |
+| Functions directory | `netlify/functions` |
+
+The included `netlify.toml` publishes static assets from `public`, bundles EJS templates in the function, and redirects application routes to `netlify/functions/api.js`.
+
+Configure these environment variables in the Netlify dashboard:
+
+- `MONGO_URI`
+- `JWT_SECRET`
+- `JWT_EXPIRES_IN`
+- `PORT` is optional for Netlify
+
+Netlify must have network access to the MongoDB Atlas cluster. Atlas Network Access should allow connections from the deployed application.
+
+Local Netlify development can be started with the Netlify CLI if it is installed:
+
+```bash
+npx netlify-cli dev
+```
+
 ## Security
 
 - Passwords are hashed with bcrypt before storage.

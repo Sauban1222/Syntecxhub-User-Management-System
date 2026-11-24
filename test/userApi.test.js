@@ -7,6 +7,7 @@ import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import app from '../server.js';
 import User from '../models/User.js';
+import { handler as netlifyHandler, normalizeEvent } from '../netlify/functions/api.js';
 
 process.env.JWT_SECRET = 'test-only-jwt-secret-at-least-32-bytes';
 process.env.JWT_EXPIRES_IN = '1h';
@@ -64,6 +65,28 @@ after(async () => {
 test('health endpoint is available', async () => {
   const { response, body } = await apiRequest('/api/health');
   assert.equal(response.status, 200);
+  assert.equal(body.status, 'healthy');
+});
+
+test('Netlify function preserves API paths and serves the health endpoint', async () => {
+  assert.equal(normalizeEvent({
+    path: '/.netlify/functions/api/api/health',
+    rawUrl: 'http://localhost/.netlify/functions/api/api/health',
+  }).path, '/api/health');
+
+  const result = await netlifyHandler({
+    httpMethod: 'GET',
+    headers: {},
+    path: '/api/health',
+    rawUrl: 'http://localhost/api/health',
+    rawQuery: '',
+    queryStringParameters: null,
+    body: null,
+    isBase64Encoded: false,
+  }, {});
+
+  assert.equal(result.statusCode, 200);
+  const body = JSON.parse(result.body);
   assert.equal(body.status, 'healthy');
 });
 
