@@ -26,7 +26,10 @@ export async function connectDB() {
     console.log(`MongoDB connected: ${mongoose.connection.host}`);
     return mongoose.connection;
   } catch (error) {
-    console.error('MongoDB connection failed');
+    console.error('MongoDB connection failed', {
+      name: error?.name || 'UnknownError',
+      code: error?.code,
+    });
     throw error;
   }
 }

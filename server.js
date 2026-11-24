@@ -86,6 +86,16 @@ app.use((error, req, res, next) => {
     return next(error);
   }
 
+  if (process.env.NODE_ENV !== 'test') {
+    console.error('Unhandled request error', {
+      name: error?.name || 'UnknownError',
+      code: error?.code,
+      status: error?.statusCode || error?.status,
+      method: req?.method,
+      path: req?.path,
+    });
+  }
+
   const requestedStatus = Number(error.statusCode || error.status);
   const statusCode = requestedStatus >= 400 && requestedStatus <= 599 ? requestedStatus : 500;
 
