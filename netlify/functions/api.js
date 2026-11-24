@@ -29,8 +29,18 @@ function normalizeEvent(event) {
 }
 
 export async function handler(event, context) {
-  await connectDB();
-  return expressHandler(normalizeEvent(event), context);
+  const normalizedEvent = normalizeEvent(event);
+  const method = (normalizedEvent.httpMethod || event.httpMethod || 'GET').toUpperCase();
+  const requestPath = normalizedEvent.path || '/';
+  const requiresDatabase =
+    requestPath.startsWith('/api/') ||
+    (method !== 'GET' && method !== 'HEAD');
+
+  if (requiresDatabase) {
+    await connectDB();
+  }
+
+  return expressHandler(normalizedEvent, context);
 }
 
 export { normalizeEvent };
