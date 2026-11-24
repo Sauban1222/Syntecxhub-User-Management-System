@@ -3,16 +3,16 @@ import express from 'express';
 import cors from 'cors';
 import path from 'node:path';
 import { existsSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
 import { connectDB } from './config/db.js';
 import userRoutes from './routes/userRoutes.js';
 
 const app = express();
 const port = Number(process.env.PORT || 5000);
-const projectDirectory = path.dirname(fileURLToPath(import.meta.url));
+const projectDirectory = process.cwd();
 const viewDirectoryCandidates = [
   path.join(projectDirectory, 'views'),
   path.join(process.cwd(), 'views'),
+  '/var/task/views',
 ];
 const viewDirectory = viewDirectoryCandidates.find((candidate) =>
   existsSync(candidate)
@@ -20,6 +20,7 @@ const viewDirectory = viewDirectoryCandidates.find((candidate) =>
 const staticDirectoryCandidates = [
   path.join(projectDirectory, 'public'),
   path.join(process.cwd(), 'public'),
+  '/var/task/public',
 ];
 const staticDirectory = staticDirectoryCandidates.find((candidate) =>
   existsSync(candidate)
@@ -97,7 +98,7 @@ export async function startServer() {
 
 const isMainModule =
   process.argv[1] &&
-  path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+  path.basename(path.resolve(process.argv[1])) === 'server.js';
 
 if (isMainModule) {
   startServer();
