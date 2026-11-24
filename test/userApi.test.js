@@ -24,7 +24,12 @@ const password = 'Test-Password-2026!';
 
 async function apiRequest(path, options = {}) {
   const response = await fetch(`${baseUrl}${path}`, options);
-  const body = await response.json();
+  let body = null;
+  try {
+    body = await response.json();
+  } catch {
+    body = null;
+  }
   return { response, body };
 }
 
@@ -66,6 +71,21 @@ test('health endpoint is available', async () => {
   const { response, body } = await apiRequest('/api/health');
   assert.equal(response.status, 200);
   assert.equal(body.status, 'healthy');
+});
+
+test('homepage redirects unauthenticated visitors to registration', async () => {
+  const response = await fetch(`${baseUrl}/`, { redirect: 'manual' });
+  assert.equal(response.status, 302);
+  assert.equal(response.headers.get('location'), '/register');
+});
+
+test('registration and login pages render successfully', async () => {
+  const register = await apiRequest('/register');
+  const login = await apiRequest('/login');
+  assert.equal(register.response.status, 200);
+  assert.equal(register.response.headers.get('content-type')?.includes('text/html'), true);
+  assert.equal(login.response.status, 200);
+  assert.equal(login.response.headers.get('content-type')?.includes('text/html'), true);
 });
 
 test('Netlify function preserves API paths and serves the health endpoint', async () => {

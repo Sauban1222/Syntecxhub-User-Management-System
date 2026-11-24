@@ -43,6 +43,10 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+app.get('/', (_req, res) => {
+  res.redirect(302, '/register');
+});
+
 app.get('/register', (_req, res) => {
   res.set('Cache-Control', 'no-store');
   res.render('register');
