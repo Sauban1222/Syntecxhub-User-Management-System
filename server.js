@@ -13,17 +13,25 @@ const viewDirectoryCandidates = [
   path.join(projectDirectory, 'views'),
   path.join(process.cwd(), 'views'),
   '/var/task/views',
+  '/var/task/netlify/functions/views',
+  process.env.LAMBDA_TASK_ROOT
+    ? path.join(process.env.LAMBDA_TASK_ROOT, 'views')
+    : null,
 ];
 const viewDirectory = viewDirectoryCandidates.find((candidate) =>
-  existsSync(candidate)
+  candidate && existsSync(candidate)
 ) || viewDirectoryCandidates[0];
 const staticDirectoryCandidates = [
   path.join(projectDirectory, 'public'),
   path.join(process.cwd(), 'public'),
   '/var/task/public',
+  '/var/task/netlify/functions/public',
+  process.env.LAMBDA_TASK_ROOT
+    ? path.join(process.env.LAMBDA_TASK_ROOT, 'public')
+    : null,
 ];
 const staticDirectory = staticDirectoryCandidates.find((candidate) =>
-  existsSync(candidate)
+  candidate && existsSync(candidate)
 ) || staticDirectoryCandidates[0];
 
 app.set('view engine', 'ejs');

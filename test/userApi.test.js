@@ -110,6 +110,25 @@ test('Netlify function preserves API paths and serves the health endpoint', asyn
   assert.equal(body.status, 'healthy');
 });
 
+test('Netlify function renders registration and login pages', async () => {
+  for (const path of ['/register', '/login']) {
+    const result = await netlifyHandler({
+      httpMethod: 'GET',
+      headers: {},
+      path,
+      rawUrl: `http://localhost${path}`,
+      rawQuery: '',
+      queryStringParameters: null,
+      body: null,
+      isBase64Encoded: false,
+    }, {});
+
+    assert.equal(result.statusCode, 200);
+    assert.equal(typeof result.body, 'string');
+    assert.equal(result.headers['content-type']?.includes('text/html'), true);
+  }
+});
+
 test('registration validates invalid input', async () => {
   const { response, body } = await apiRequest(
     '/api/users/register',
