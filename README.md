@@ -2,7 +2,7 @@
 
 A secure, responsive full-stack user management application built with Node.js, Express.js, MongoDB, Mongoose, JWT, bcrypt, and EJS.
 
-**Live application:** https://syntecxhub-user-management-system.netlify.app/
+**Live application:** https://syntecxhub-user-management-system-s.vercel.app/register
 
 **GitHub repository:** https://github.com/Sauban1222/Syntecxhub-User-Management-System.git
 
@@ -303,7 +303,7 @@ npx netlify-cli dev
 
 - GitHub: https://github.com/Sauban1222
 - Portfolio: https://sauban-professional-developer.netlify.app/
-- Live project: https://syntecxhub-user-management-system.netlify.app/
+- Live project: https://syntecxhub-user-management-system-s.vercel.app/register
 
 ## License
 
